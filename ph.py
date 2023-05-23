@@ -32,26 +32,27 @@ def findAb(findArg):
     getOut = False
     found = list()
     while getOut != True:
-        arg = input('Введите образец поиска: ')
+        arg = input('Введите образец поиска (или Enter для выхода из поиска): ')
         if arg == '':
             getOut = True
+            break
         else:
             arg = arg.lower()
             for ab in findArg:
                 if ab[1].lower().find(arg) != -1:
                     found.append(ab)
-            if len(found) > 0:
-                print()
-                print('========= А вот чего нашлось: ===============')
-                print()
-                for x in found:
-                    for i in x:
-                        print(i, ' ', end = '')
+                if len(found) > 0:
                     print()
-                
-            else:
-                print()
-                print('========= Ничего не найдено ===============')
-                print()
-            found = list()
+                    print('========= А вот чего нашлось: ===============')
+                    print()
+                    for x in found:
+                        for i in x:
+                            print(i, ' ', end = '')
+                        print()
+                    
+                else:
+                    print()
+                    print('========= Ничего не найдено ===============')
+                    print()
+        found = list()
     return found
