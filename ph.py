@@ -44,8 +44,14 @@ def findAb(findArg):
                 print()
                 print('========= А вот чего нашлось: ===============')
                 print()
-            for x in found:
-                for i in x:
-                    print(i, ' ', end = '')
+                for x in found:
+                    for i in x:
+                        print(i, ' ', end = '')
+                    print()
+                
+            else:
                 print()
+                print('========= Ничего не найдено ===============')
+                print()
+            found = list()
     return found
