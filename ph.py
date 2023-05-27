@@ -22,14 +22,15 @@ def readFile(fName):
 def prAbonents(abList, currPos=0):
     outStr = ''
     for abStr in range(0, len(abList)):
-        for pos in range(0, len(abList[abStr])):
-            outStr += abList[abStr][pos] + " "
-        if abStr != currPos:
-            outStr = '    ' + outStr
-        else:
-            outStr = '==> ' + outStr
-        print(outStr)
-        outStr = ''
+        if abList[abStr][0] != '':
+            for pos in range(0, len(abList[abStr])):
+                outStr += abList[abStr][pos] + " "
+            if abStr != currPos:
+                outStr = '    ' + outStr
+            else:
+                outStr = '==> ' + outStr
+            print(outStr)
+            outStr = '' 
 
 def findAb(abList):
     getOut = False
@@ -40,11 +41,9 @@ def findAb(abList):
         arg = input('Введите образец поиска (или Enter для выхода из поиска): ')
         if arg == '':
             getOut = True
-            #break
         else:
             arg = arg.lower()
             for ab in abList:
-                #---- начинаем хулиганить ----------------
                 altStr = ' '.join(ab).lower()
                 if altStr.find(arg) != -1:
                     found.append(ab)
@@ -52,6 +51,7 @@ def findAb(abList):
                 print()
                 print('========= А вот чего нашлось: ===============')
                 print()
+                print('ID:')
                 for x in found:
                     for i in x:
                         print(i, ' ', end = '')
@@ -61,35 +61,38 @@ def findAb(abList):
                 
                 choice = input('Ваш выбор: ')
                 if choice == '1':
-                    print(f'found = {found}')
-                    print(f'len(found) = {len(found)}')
                     if len(found) > 1:
-                        ab = input('введите порядковый номер абонента (номера указаны в начале записей): ')
+                        ab = input('введите ID абонента (номера указаны в начале записей): ')
                         ab = int(ab)
                         print(f'ab = {ab}')
                     else:
-                        print(f'found[0][0] = {found[0][0]}')
                         ab = int(found[0][0])
-                        print(f'ab = {ab}')
-                        print(f'abList[ab-1] = {abList[ab-1]}')
-                        
+                    print()    
+
                     abList[ab-1] = editAb(abList[ab-1], abList)
-                    #abList[ab-1] = editAb(abList[ab-1], abList)
-                    print(f'abList = {abList}')
-                    #saveFile(abList)
-                    #input('press!')
                     return abList
                 
                 if choice == '9':
+                    print()
                     if len(found) > 1:
-                        ab = input('введите порядковый номер абонента (номера указаны в начале записей): ')
+                        ab = input('введите ID абонента (номера указаны в начале записей): ')
+                        print()
                         ab = int(ab)
-                        #print(f'ab = {ab}')
                     else:
-                        #print(f'found[0][0] = {found[0][0]}')
                         ab = int(found[0][0])
+                print('Вы уверены, что хотите удалить эту запись?')
+                print()
 
-
+                for x in abList[ab-1]:
+                    print(x, ' ', end = '')
+                print()
+                print()
+                delYes = input('Введите "y" (Yes) для подтверждения удаления либо "Enter": ')
+                if delYes == 'Y' or delYes == 'y' or delYes == 'н' or delYes == 'Н':
+                    for vol in range(0, len(abList[ab-1])):
+                        abList[ab-1][vol] = ''
+                    print('... мир праху его.')
+                                   
             else:
                 print()
                 print('========= Ничего не найдено ===============')
@@ -105,10 +108,8 @@ def editAbItem(abPos,itemName, itemStr):
     print(f'Текущее значение" : {abPos[itemName]}')
     cList=list()
     cList = abPos
-    print(f'cList= {cList}')
     new = input('Новое значение" : ')
     abPos[itemName] = new
-    print(f'abPos = {abPos}')
     return abPos
 
 def editAb(abPos,fileData):
@@ -122,33 +123,22 @@ def editAb(abPos,fileData):
     print('3 - отчество')
     print('4 - номер телефона')
     print('"Enter" - выход из редактирования')
-    choice = int(input('Ваш выбор: '))
-    #print(f'choice = {choice}')
+    choice = input('Ваш выбор: ')
     while getOut != True:
-        if choice == 1:
+        if choice == '1':
             abPos = editAbItem(abPos, 1, 'Фамилия:')
-            #print(f'abPos in editAb: {abPos}')
             return abPos
-            #break
-        if choice == 2:
+        if choice == '2':
             abPos = editAbItem(abPos, 2, 'Имя:')
-            #print(f'abPos in editAb: {abPos}')
             return abPos
-            #break
-        if choice == 3:
+        if choice == '3':
             abPos = editAbItem(abPos, 3, 'отчество:')
-            #print(f'abPos in editAb: {abPos}')
             return abPos
-            #break
-        if choice == 4:
+        if choice == '4':
             abPos = editAbItem(abPos, 4, 'Телефон:')
-            #print(f'abPos in editAb: {abPos}')
             return abPos
-            #break
         if choice == '':
             getOut = True
-    #print(f'Теперь newList = {newList}')
-    #input('press!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 
     return abPos
 
@@ -176,22 +166,32 @@ def addAb(abList):
     return abList
 
 def saveFile(abList, fileName):
-    #print('abList из saveFile():')
-    #print(abList)
-    #print('press***************************')
     tempStr = ''
     with open(fileName, 'w', encoding = 'utf-8') as file:
+        counter = 1
         for row in abList:
             size = len(row)
-            for  i in range(0,size):
-                #print(f'i = {i}, size = {size}')
-                if i != size-1: 
-                    tempStr += row[i] + ';'
-                else:
-                    tempStr += row[i]
-
-            tempStr += '\n'
-            #print(f'tempStr = {tempStr}')
-            #input('press!')
+            if row[0] != '':
+                tempStr += str(counter) + ';'
+                for i in range(1,size):
+                    #print(f'row[i]= {row[i]}')
+                        
+                    if i != size-1: 
+                        tempStr += row[i] + ';'
+                    else: 
+                        tempStr += row[i]
+                tempStr += '\n'
+                
+                print()
+            
+                #tempStr += '\n'
+                counter += 1
+            #-------------------------------
+           
+            # print('tempStr: ')
+            # print(tempStr)
+            # input('press!!!')
+        #-------------------------------
+        #print(tempStr)    
         file.write(tempStr)
     file.close()

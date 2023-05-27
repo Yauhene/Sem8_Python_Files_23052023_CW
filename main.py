@@ -11,7 +11,9 @@ currPose = 0
 fileContent = readFile('phones.txt')
 saveFile(fileContent, 'phones.bak')
 #prAbonents(fileContent)
+
 mainMenu(fileContent, currPose)
+
 #fileContent = mainMenu(fileContent, currPose)
 # print('В итоге fileContent: ')
 # print(fileContent)
