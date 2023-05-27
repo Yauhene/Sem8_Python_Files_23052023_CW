@@ -1,16 +1,6 @@
-# Прочитать файл
-
-# Распечатать содержимое
-
-# Вывести меню
-# - поиск
-# - выход
-# - вывод всех записей
-# - добавить
-
 import os
 
-
+# функция чтения файла в список, каждый элемент списка - список данных
 def readFile(fName):
     with open(fName, 'r', encoding='utf-8') as file:
         fileContent = list()
@@ -19,6 +9,7 @@ def readFile(fName):
     file.close()
     return fileContent
 
+# функция вывода списка обонентов в консоль, вывод всегда находится над опциями гл. меню
 def prAbonents(abList, currPos=0):
     outStr = ''
     for abStr in range(0, len(abList)):
@@ -32,10 +23,12 @@ def prAbonents(abList, currPos=0):
             print(outStr)
             outStr = '' 
 
+# функция поиска абонента по фрагментам информации,
+# поиск идет сразу по всем полям записи
 def findAb(abList):
-    getOut = False
-    found = list()
-    altList = list()
+    getOut = False # флаг выхода из цикла меню
+    found = list() # список результатов текстового поиска
+    
     while getOut != True:
         os.system('CLS')
         arg = input('Введите образец поиска (или Enter для выхода из поиска): ')
@@ -102,6 +95,7 @@ def findAb(abList):
     #os.system('CLS')
     return abList
 
+# подфункция редактирования записи
 def editAbItem(abPos,itemName, itemStr):
     itemName = int(itemName) 
     print(itemStr)
@@ -142,6 +136,7 @@ def editAb(abPos,fileData):
 
     return abPos
 
+# функция добавления записи абонента
 def addAb(abList):
     tempList = list()
     getOut = False
@@ -165,6 +160,8 @@ def addAb(abList):
     tempStr = ', '.join(tempList)
     return abList
 
+# функция сохранения данных из списка в файл
+# нумерация записей абонентов корректируется для компесации удалений абонентов
 def saveFile(abList, fileName):
     tempStr = ''
     with open(fileName, 'w', encoding = 'utf-8') as file:
@@ -173,9 +170,7 @@ def saveFile(abList, fileName):
             size = len(row)
             if row[0] != '':
                 tempStr += str(counter) + ';'
-                for i in range(1,size):
-                    #print(f'row[i]= {row[i]}')
-                        
+                for i in range(1,size):                        
                     if i != size-1: 
                         tempStr += row[i] + ';'
                     else: 
@@ -184,14 +179,7 @@ def saveFile(abList, fileName):
                 
                 print()
             
-                #tempStr += '\n'
                 counter += 1
-            #-------------------------------
-           
-            # print('tempStr: ')
-            # print(tempStr)
-            # input('press!!!')
-        #-------------------------------
-        #print(tempStr)    
+             
         file.write(tempStr)
     file.close()
