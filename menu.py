@@ -22,7 +22,7 @@ def mainMenu(fileContent, pos):
         choice = choice.lower()
         if choice == 'Q' or choice == 'q' or choice == 'й' or choice == 'Й':
             getOut = True
-            saveFile(fileContent)
+            saveFile(fileContent,'phones.txt')
             print()
             print('Дело хозяйское... До новых встреч!')
             print()
@@ -38,7 +38,7 @@ def mainMenu(fileContent, pos):
             fileContent = addAb(readFile('phones.txt'))
 
         if choice == '4':
-            saveFile(fileContent)
+            saveFile(fileContent, 'phones.txt')
 
         if choice == 'u' or choice == 'г':
             if pos != 0:

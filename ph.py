@@ -57,7 +57,7 @@ def findAb(abList):
                         print(i, ' ', end = '')
                     print()
                 print()
-                print('1 - редактировать запись,  "Enter" - выйти из поиска')
+                print('1 - редактировать запись,  9 - удалить запись,  "Enter" - выйти из поиска')
                 
                 choice = input('Ваш выбор: ')
                 if choice == '1':
@@ -80,6 +80,14 @@ def findAb(abList):
                     #input('press!')
                     return abList
                 
+                if choice == '9':
+                    if len(found) > 1:
+                        ab = input('введите порядковый номер абонента (номера указаны в начале записей): ')
+                        ab = int(ab)
+                        #print(f'ab = {ab}')
+                    else:
+                        #print(f'found[0][0] = {found[0][0]}')
+                        ab = int(found[0][0])
 
 
             else:
@@ -167,12 +175,12 @@ def addAb(abList):
     tempStr = ', '.join(tempList)
     return abList
 
-def saveFile(abList):
+def saveFile(abList, fileName):
     #print('abList из saveFile():')
-    print(abList)
+    #print(abList)
     #print('press***************************')
     tempStr = ''
-    with open('phones.txt', 'w', encoding = 'utf-8') as file:
+    with open(fileName, 'w', encoding = 'utf-8') as file:
         for row in abList:
             size = len(row)
             for  i in range(0,size):

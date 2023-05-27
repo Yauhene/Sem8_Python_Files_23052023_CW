@@ -8,8 +8,8 @@ import os
 
 os.system('CLS') # очистка консоли
 currPose = 0
-1
 fileContent = readFile('phones.txt')
+saveFile(fileContent, 'phones.bak')
 #prAbonents(fileContent)
 mainMenu(fileContent, currPose)
 #fileContent = mainMenu(fileContent, currPose)
