@@ -73,19 +73,23 @@ def findAb(abList):
                         ab = int(ab)
                     else:
                         ab = int(found[0][0])
-                print('Вы уверены, что хотите удалить эту запись?')
-                print()
+                    print('Вы уверены, что хотите удалить эту запись?')
+                    print()
 
-                for x in abList[ab-1]:
-                    print(x, ' ', end = '')
-                print()
-                print()
-                delYes = input('Введите "y" (Yes) для подтверждения удаления либо "Enter": ')
-                if delYes == 'Y' or delYes == 'y' or delYes == 'н' or delYes == 'Н':
-                    for vol in range(0, len(abList[ab-1])):
-                        abList[ab-1][vol] = ''
-                    print('... мир праху его.')
-                                   
+                
+                    for x in abList[ab-1]:
+                        print(x, ' ', end = '')
+                    print()
+                    print()
+                    delYes = input('Введите "y" (Yes) для подтверждения удаления либо "Enter": ')
+                    if delYes == 'Y' or delYes == 'y' or delYes == 'н' or delYes == 'Н':
+                        for vol in range(0, len(abList[ab-1])):
+                            abList[ab-1][vol] = ''
+                        print('... мир праху его.')
+
+                if choice == '':
+                    getOut = True
+
             else:
                 print()
                 print('========= Ничего не найдено ===============')

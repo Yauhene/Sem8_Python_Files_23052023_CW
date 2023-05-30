@@ -7,6 +7,7 @@ currPose = 0
 
 
 fileContent = readFile('phones.txt') #чтение файла-хранилища в память
+
 saveFile(fileContent, 'phones.bak') #создание bak-файла
 
 mainMenu(fileContent, currPose)
